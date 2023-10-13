@@ -1,0 +1,18 @@
+<h1>User info</h1>
+      <%= image_tag current_user.get_profile_image(100, 100) %>
+      <table class="table">
+        <tr>
+          <th>name</th>
+          <th><%= current_user.name %></th>
+        </tr>
+        <tr>
+          <th>introduction</th>
+          <td><%= current_user.introduction %></td>
+        </tr>
+      </table>
+      <div class="row">
+      <%= link_to edit_user_path(current_user), class: "btn btn-outline-secondary btn-block" do%>
+        <span class="fas fa-user-cog"></span>
+      <% end %>
+      </div>
+      <%= render "books/form", book: book %>
