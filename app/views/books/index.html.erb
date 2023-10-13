@@ -1,12 +1,26 @@
 <div class="container">
   <div class="row">
-    <div class="col-mg-3">
+    <div class="col-md-3">
       <%= render "users/info", user: @user, book: @book %>
     </div>
-    <div class="col-mg-8 offset-mg-1">
-      <h1>Book</h1>
+    <div class="col-md-8 offset-md-1">
+      <h2>Books</h2>
       <table class="table">
-        
+        <tr>
+          <th></th>
+          <th>Title</th>
+          <th>Opinion</th>
+        </tr>
+        <% @books.each do |book| %>
+        <tr>
+          <td>
+            <%= link_to user_path(book.user) do %>
+              <%= image_tag book.user.get_profile_image(50,50) %>
+            <% end %>
+          </td>
+          <%= render "books/info", book: book %>
+        </tr>
+        <% end %>
       </table>
     </div>
   </div>

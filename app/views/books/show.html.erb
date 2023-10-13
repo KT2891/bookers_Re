@@ -1,2 +1,25 @@
-<h1>Books#show</h1>
-<p>Find me in app/views/books/show.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <%= render "users/info", user: @show_book.user, book: @book %>
+    </div>
+    <div class="col-md-8 offset-md-1">
+      <h2>Book detail</h2>
+      <table class=table>
+        <tr>
+          <td>
+            <%= link_to user_path(@show_book.user) do %>
+              <%= image_tag @show_book.user.get_profile_image(100, 100) %>
+              <%= @show_book.user.name %>
+            <% end %>
+          </td>
+            <%= render "books/info", book: @show_book %>
+            <% if user_signed_in? %>
+              <td><%= link_to "Edit", edit_book_path(@show_book), class: "btn btn-success" %></td>
+              <td><%= link_to "Destroy", book_path(@show_book), method: :delete, "data-confirm" => "本当に消しますか？", class: "btn btn-danger"%></td>
+            <% end %>
+          </tr>
+      </table>
+    </div>
+  </div>
+</div>
