@@ -1,0 +1,4 @@
+$("#follower_user_<%= @user.id %>").html("<%= j(render "users/follow", user: @user) %>");
+
+$("#follower_count_<%= current_user.id %>").html("<%= "フォロー数：#{current_user.following.count}" %>");
+$("#followed_count_<%= @user.id %>").html("<%= "フォロワー数：#{@user.followers.count}" %>");

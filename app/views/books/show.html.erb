@@ -5,21 +5,17 @@
     </div>
     <div class="col-md-8 offset-md-1">
       <h2>Book detail</h2>
-      <table class=table>
-        <tr>
-          <td>
-            <%= link_to user_path(@show_book.user) do %>
-              <%= image_tag @show_book.user.get_profile_image(100, 100) %>
-              <%= @show_book.user.name %>
-            <% end %>
-          </td>
-            <%= render "books/info", book: @show_book %>
-            <% if @show_book.user == current_user %>
-              <td><%= link_to "Edit", edit_book_path(@show_book), class: "btn btn-success" %></td>
-              <td><%= link_to "Destroy", book_path(@show_book), method: :delete, "data-confirm" => "本当に消しますか？", class: "btn btn-danger"%></td>
-            <% end %>
-          </tr>
+      <table class="table">
+        <tr id="book_detail">
+          <%= render "books/info", book: @show_book %>
+        </tr>
       </table>
+      <table class="table" id="comments_table">
+        <%= render "book_comments/index", comments: @show_book.book_comments %>
+      </table>
+      <div class="text_form">
+        <%= render "book_comments/form", book_comment: @book_comment, book: @show_book %>
+      </div>
     </div>
   </div>
 </div>

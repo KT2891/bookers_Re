@@ -9,6 +9,7 @@ before_action :is_matching_login_book_user, only: [:edit, :update]
   def show
     @book = Book.new
     @show_book = Book.find(params[:id])
+    @book_comment = BookComment.new
   end
 
   def edit

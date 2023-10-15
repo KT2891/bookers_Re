@@ -1,5 +1,10 @@
 <tr>
   <td><%= image_tag user.get_profile_image(80,80) %></td>
   <td><%= user.name %></td>
+  <td id="follower_count_<%= user.id %>"><%= "フォロー数：#{user.following.count}" %></td>
+  <td id="followed_count_<%= user.id %>"><%= "フォロワー数：#{user.followers.count}" %></td>
+  <td id="follower_user_<%= user.id %>">
+    <%= render "users/follow", user: user %>
+  </td>
   <td><%= link_to "Show", user_path(user) %></td>
 </tr>

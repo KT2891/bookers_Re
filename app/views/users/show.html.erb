@@ -18,7 +18,8 @@
               <%= image_tag book.user.get_profile_image(80,80) %>
             <% end %>
           </td>
-          <%= render "books/info", book: book %>
+          <td><%= link_to book.title, book_path(book) %></td>
+          <td><%= book.body %></td>
         </tr>
         <% end %>
       </table>
