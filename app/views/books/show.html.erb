@@ -14,7 +14,7 @@
             <% end %>
           </td>
             <%= render "books/info", book: @show_book %>
-            <% if user_signed_in? %>
+            <% if @show_book.user == current_user %>
               <td><%= link_to "Edit", edit_book_path(@show_book), class: "btn btn-success" %></td>
               <td><%= link_to "Destroy", book_path(@show_book), method: :delete, "data-confirm" => "本当に消しますか？", class: "btn btn-danger"%></td>
             <% end %>
