@@ -9,10 +9,51 @@
     <th>introduction</th>
     <td><%= user.introduction %></td>
   </tr>
+  <!--非同期通信にてフォロー数変更のためクラス名を変えている。効率化できればしたい-->
+  <% if current_user == user %>
+    <tr>
+      <td>follows</td>
+      <td>
+          <%= link_to user_following_path(user), id: "current_following_count" do %>
+            <%= user.following.count %>
+          <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td>followers</td>
+      <td>
+        <%= link_to user_followers_path(user), id: "current_followers_count" do %>
+          <%= user.followers.count %>
+        <% end %>
+      </td>
+    </tr>
+  <% else %>
+    <tr>
+      <td>follows</td>
+      <td>
+          <%= link_to user_following_path(user), id: "other_following_count" do %>
+            <%= user.following.count %>
+          <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td>followers</td>
+      <td>
+        <%= link_to user_followers_path(user), id: "other_followers_count" do %>
+          <%= user.followers.count %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
 </table>
+<% unless current_user == user %>
+  <div class="my-3" id="follow_btn">
+    <%= render "relationships/follow_btn", user: @user, roomId: @roomId, isRoom: @isRoom, room: @room, entry: @entry %>
+  </div>
+<% end %>
 <div class="row">
 <%= link_to edit_user_path(user), class: "btn btn-outline-secondary btn-block" do%>
   <span class="fas fa-user-cog"></span>
 <% end %>
 </div>
-<%= render "books/form", book: book %>
+<%= render "books/form", book: @book%>

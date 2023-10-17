@@ -1,4 +1,12 @@
+<!--フォローするorフォロー外すの変更。メイン部分-->
 $("#follower_user_<%= @user.id %>").html("<%= j(render "users/follow", user: @user) %>");
-
+<!--user indexのフォロー人数の変更用-->
 $("#follower_count_<%= current_user.id %>").html("<%= "フォロー数：#{current_user.following.count}" %>");
 $("#followed_count_<%= @user.id %>").html("<%= "フォロワー数：#{@user.followers.count}" %>");
+
+<!--サイドバー用のフォローボタンの切り替え-->
+$("#follow_btn").html("<%= j(render "relationships/follow_btn", user: @user, roomId: @roomId, isRoom: @isRoom, room: @room, entry: @entry) %>");
+$("#other_following_count").html("<%= @user.following.count%>");
+$("#other_followers_count").html("<%= @user.followers.count%>");
+$("#current_following_count").html("<%= current_user.following.count%>");
+$("#current_followers_count").html("<%= current_user.followers.count%>");

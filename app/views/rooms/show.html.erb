@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="row my-3">
+    <h3><%= @user.name %> さんとのチャット</h3>
+    <%= link_to "All delete", room_messages_path(@room), method: :delete, remote: true, "data-confirm" => "本当に消しますか？", class: "btn btn-danger offset-6"%>
+  </div>
+  <div class="container col-10 my-5" id="message_index">
+    <%= render "messages/index", room: @room %>
+  </div>
+  <div class="row">
+    <div class="form-group mt-5 offset-9">
+      <%= form_with model: [@room, @message], local: false do |f| %>
+        <%= f.hidden_field :user_id, value: current_user.id %>
+        <%= f.text_field :message, autofocus: true, class: "form-control message_area" %>
+      <% end %>
+    </div>
+  </div>
+</div>

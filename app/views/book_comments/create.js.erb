@@ -1,6 +1,6 @@
 $("#comments_table").html(" <%= j(render "book_comments/index", comments: @show_book.book_comments) %> ");
 
-$("#book_detail").html(" <%= j(render "books/info", book: @show_book ) %> ");
+$("#comment_count").html("コメント数：<%= @show_book.book_comments.count %>");
 
 $("#text_form").html(" <%= j(render "book_comments/form", book_comment: @comment, book: @show_book) %> ");
 $("textarea").val('')

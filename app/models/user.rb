@@ -12,6 +12,11 @@ class User < ApplicationRecord
 
   has_many :following, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
+  
+  has_many :entries, dependent: :destroy
+  has_many :messages, dependent: :destroy
+  
+  
 
   validates :name, presence: true,
                    uniqueness: true,
@@ -31,6 +36,21 @@ class User < ApplicationRecord
 
   def followed_by?(user)
     following.include?(user)
+  end
+
+  def self.looks(search, word)
+    case search
+      when "perfect_match" then
+        return User.where("name LIKE?","#{word}")
+      when "forward_match" then
+        return User.where("name LIKE?","#{word}%")
+      when "backward_match" then
+        return User.where("name LIKE?","%#{word}")
+      when "partial_match" then
+        return User.where("name LIKE?","%#{word}%")
+      else
+        return User.all
+    end
   end
 
 end

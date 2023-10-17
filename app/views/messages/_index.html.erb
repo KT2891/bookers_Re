@@ -1,0 +1,16 @@
+<% room.messages.each do |message| %>
+  <div class="row my-1">
+    <% if message.user == current_user %>
+      <div class="row my-2 ml-auto align-items-end">
+        <div class="mr-2"><%= message.created_at.strftime("%p %R")%></div>
+        <div class="p-2 bg-info text-light rounded-pill"><%= message.message %></div>
+      </div>
+    <% else %>
+      <div class="row my-2 mr-auto align-items-end">
+        <div><%= image_tag message.user.get_profile_image(70,70), class: "rounded-circle" %></div>
+        <div class="p-2 bg-secondary text-light rounded-pill"><%= message.message %></div>
+        <div class="ml-2"><%= message.created_at.strftime("%p %R")%></div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

@@ -10,6 +10,21 @@ class Book < ApplicationRecord
     favorites.exists?(user_id: user.id)
   end
 
+  def self.looks(search, word)
+    case search
+      when "perfect_match" then
+        return Book.where("title LIKE?","#{word}")
+      when "forward_match" then
+        return Book.where("title LIKE?","#{word}%")
+      when "backward_match" then
+        return Book.where("title LIKE?","%#{word}")
+      when "partial_match" then
+        return Book.where("title LIKE?","%#{word}%")
+      else
+        return Book.all
+    end
+  end
+
   # has_one_attached :image
 
   # def get_image

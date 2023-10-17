@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="row">
+    <h2><%= @range %> search for "<%= @word %>"</h2>
+<% if @range == "User" %>
+  <table class="table">
+    <thead>
+      <tr>
+        <th></th>
+        <th>name</th>
+        <th colspan=4 ></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <%= render "users/show", user: user %>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <table class="table">
+    <thead>
+      <tr>
+        <th></th>
+        <th>title</th>
+        <th>Opinion</th>
+        <th colspan=4></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @books.each do |book| %>
+        <tr>
+          <%= render "books/info", book: book %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+  </div>
+</div>
