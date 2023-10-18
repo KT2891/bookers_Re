@@ -4,3 +4,5 @@ $("#comment_count").html("コメント数：<%= @show_book.book_comments.count %
 
 $("#text_form").html(" <%= j(render "book_comments/form", book_comment: @comment, book: @show_book) %> ");
 $("textarea").val('')
+
+$("#errors_wrap").html(" <%= @comment.errors.full_messages.first %> ")

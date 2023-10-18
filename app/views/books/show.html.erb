@@ -13,6 +13,9 @@
       <table class="table" id="comments_table">
         <%= render "book_comments/index", comments: @show_book.book_comments %>
       </table>
+      <div id="errors_wrap">
+
+      </div>
       <div class="text_form">
         <%= render "book_comments/form", book_comment: @book_comment, book: @show_book %>
       </div>

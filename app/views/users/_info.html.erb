@@ -48,7 +48,7 @@
 </table>
 <% unless current_user == user %>
   <div class="my-3" id="follow_btn">
-    <%= render "relationships/follow_btn", user: @user, roomId: @roomId, isRoom: @isRoom, room: @room, entry: @entry %>
+    <%= render "relationships/follow_btn",user: user, roomId: @roomId, isRoom: @isRoom, room: @room, entry: @entry %>
   </div>
 <% end %>
 <div class="row">

@@ -10,6 +10,7 @@
           <th></th>
           <th>Title</th>
           <th>Opinion</th>
+          <th colspan=4></th>
         </tr>
         <% @user.books.each do |book| %>
         <tr>
@@ -22,6 +23,49 @@
           <td><%= book.body %></td>
         </tr>
         <% end %>
+      </table>
+      <h2>投稿数の前日比・前週比</h2>
+      <table class="table table-bordered">
+        <tr>
+          <th>今日の投稿数</th>
+          <th>前日の投稿数</th>
+          <th>前日比</th>
+        </tr>
+        <tr>
+          <td>
+            <%= @today_books.count %>
+          </td>
+          <td>
+            <%= @yesterday_books.count %>
+          </td>
+          <td>
+            <% if @yesterday_books.count != 0 %>
+              <%= ((@today_books.count)*100) / (@yesterday_books.count) %>%
+            <% else %>
+              ---
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <th>今週の投稿数</th>
+          <th>前週の投稿数</th>
+          <th>前週比</th>
+        </tr>
+        <tr>
+          <td>
+            <%= @toweek_books.count %>
+          </td>
+          <td>
+            <%= @lastweek_books.count %>
+          </td>
+          <td>
+            <% if @lastweek_books.count != 0 %>
+              <%= ((@toweek_books.count)*100) / (@lastweek_books.count) %>%
+            <% else %>
+              ---
+            <% end %>
+          </td>
+        </tr>
       </table>
     </div>
   </div>

@@ -13,6 +13,17 @@ class UsersController < ApplicationController
     currentUserEntry = Entry.where(user_id: current_user.id)
     userEntry = Entry.where(user_id: @user.id)
     @book = Book.new
+
+    # 前日比、先週日の表示用
+    today = Date.today
+    yesterday = Time.current.yesterday
+    toweek = today - 6.day
+    lastweek = toweek - 8.day
+    @today_books = @user.books.where( created_at: today.beginning_of_day..today.end_of_day )
+    @yesterday_books = @user.books.where( created_at: yesterday.beginning_of_day..yesterday.end_of_day )
+    @toweek_books = @user.books.where( created_at: toweek.beginning_of_day..today.beginning_of_day)
+    @lastweek_books = @user.books.where( created_at: lastweek.beginning_of_day..(toweek - 1.day).beginning_of_day)
+
     unless @user == current_user
       currentUserEntry.each do |a_user|
         userEntry.each do |b_user|
@@ -41,7 +52,6 @@ class UsersController < ApplicationController
     else
       render :edit
     end
-
   end
 
   private
