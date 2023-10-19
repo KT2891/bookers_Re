@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   devise_for :users
   root 'homes#top'
   get 'home/about' => "homes#about", as: :about
@@ -20,5 +21,10 @@ Rails.application.routes.draw do
 
   get 'search' => "searches#search", as: :search
   post 'datesearch' => "searches#datesearch", as: :datesearch
+
+  resources :groups do
+    resource :group_users, only: [:create, :destroy]
+    resources :event_notices, only: [:new, :create, :edit, :update, :destroy]
+  end
 
 end

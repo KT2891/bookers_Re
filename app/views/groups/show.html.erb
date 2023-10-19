@@ -1,0 +1,66 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <%= render "users/info", user: current_user %>
+    </div>
+    <div class="col-md-8 offset-md-1">
+      <h2>Group detail</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>グループ名</th>
+            <th>紹介文</th>
+            <th>メンバー</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%= image_tag @group.get_group_image(70,70) %></td>
+            <td><%= @group.name %></td>
+            <td><%= @group.introduction %></td>
+            <td>
+              <% @group.users.each do |user| %>
+                <%= user.name %><br>
+              <% end %>
+            </td>
+            <td>
+              <% if @group.owner == current_user %>
+                <td><%= link_to "Edit", edit_group_path(@group), class: "btn btn-success"%></td>
+                <td><%= link_to "Destroy", group_path(@group), method: :delete, data: {confirm: "本当に消しますか？"}, class: "btn btn-danger"  %></td>
+                <td><%= link_to "Notice an Event", new_group_event_notice_path(@group), class: "btn btn-info" %></td>
+              <% else %>
+                <% unless @joinGroup %>
+                  <%= link_to "Join this group", group_group_users_path(@group), method: :post, class: "btn btn-success" %>
+                <% else %>
+                  <%= link_to "Leave this group", group_group_users_path(@group), method: :delete, class: "btn btn-danger" %>
+                <% end %>
+              <% end %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <h3>Event Mails</h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Body</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @group.event_notices.each do |notice| %>
+            <tr>
+              <td><%= notice.title %></td>
+              <td><%= notice.body %></td>
+              <% if @group.owner == current_user %>
+                <td><%= link_to "Destroy", group_event_notice_path(@group, notice), method: :delete, class: "btn btn-danger" %></td>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="row">
+    <div class="mx-auto my-3">
+      <h2>Event Mail</h2>
+      <%= render "layouts/errors", content: @event_notice %>
+      <%= form_with model: [@group, @event_notice] do |f| %>
+        <div class="form-group">
+          <label for="event_notice_title">Title</label>
+          <%= f.text_field :title, autofocus: true, class: "form-control" %>
+        </div>
+        <div class="form-group">
+          <label for="event_notice_body">Content</label>
+          <%= f.text_area :body, class: "form-control",size: "40x5" %>
+        </div>
+        <%= f.hidden_field :group_id, value: @group.id %>
+        <div class="form-group">
+          <%= f.submit "送信", class: "btn btn-success float-right" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

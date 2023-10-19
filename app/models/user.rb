@@ -19,6 +19,10 @@ class User < ApplicationRecord
   has_many :foot_stamps, dependent: :destroy
   has_many :foot_stamps_books, through: :foot_stamps, source: :book
 
+  has_many :group_users, dependent: :destroy
+  has_many :groups, through: :group_users, source: :group
+  has_many :owned_groups, class_name: 'Group', foreign_key: 'owner_id'
+
 
 
   validates :name, presence: true,
