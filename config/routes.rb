@@ -19,5 +19,6 @@ Rails.application.routes.draw do
   end
 
   get 'search' => "searches#search", as: :search
+  post 'datesearch' => "searches#datesearch", as: :datesearch
 
 end

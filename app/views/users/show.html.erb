@@ -24,6 +24,18 @@
         </tr>
         <% end %>
       </table>
+      <div class="row  ml-2 my-3">
+        <%= form_with url: datesearch_path, local: false, scope: :date_search do |f| %>
+          <%= f.hidden_field :user_id, value: @user.id %>
+          <%= f.date_field :created_at%>
+          <%= f.submit "検索", class: "btn btn-primary" %>
+        <% end %>
+      </div>
+      <div class="row">
+        <div class="ml-4" id="date_search_count"></div>
+        <table class="table" id="date_search_result">
+        </table>
+      </div>
       <h2>投稿数の前日比・前週比</h2>
       <table class="table table-bordered">
         <tr>

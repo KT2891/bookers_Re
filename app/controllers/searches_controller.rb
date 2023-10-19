@@ -8,8 +8,12 @@ class SearchesController < ApplicationController
     else
       @books = Book.looks(params[:search], params[:word] )
     end
-
   end
 
+  def datesearch
+    @user = User.find(params[:date_search][:user_id])
+    @date = params[:date_search][:created_at].to_datetime
+    @books = @user.books.created_on(@date)
+  end
 end
 

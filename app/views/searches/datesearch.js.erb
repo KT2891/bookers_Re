@@ -1,0 +1,2 @@
+$("#date_search_count").html(" <h3>検索結果</h3> <p><strong>投稿数：</strong><%= @books.count %></p>")
+$("#date_search_result").html(" <%= j(render "searches/datesearch", books: @books) %> ");
