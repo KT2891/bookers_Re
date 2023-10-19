@@ -27,9 +27,9 @@ class Book < ApplicationRecord
         return Book.all
     end
   end
-  
+
     scope :created_on, ->(date) {
-    where(created_at: date.beginning_of_day..date.end_of_day)
+    where(created_at: date.all_day)
   }
 
   # has_one_attached :image

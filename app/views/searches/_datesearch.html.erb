@@ -1,4 +1,4 @@
-
+<% if books.count != 0 %>
   <tr>
     <th></th>
     <th>Title</th>
@@ -10,3 +10,4 @@
     <%= render "books/info", book: book %>
   </tr>
   <% end %>
+<% end %>

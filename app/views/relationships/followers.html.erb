@@ -1,2 +1,27 @@
-<h1>Relationships#followers</h1>
-<p>Find me in app/views/relationships/followers.html.erb</p>
+<div class="container">
+  <h2>Follower Users</h2>
+  <% if @user.followers.blank? %>
+    <p>ユーザーはいません</p>
+  <% else %>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>image</th>
+          <th>name</th>
+          <th colspan=3></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @user.followers.each do |follower| %>
+          <tr>
+            <td><%= image_tag follower.get_profile_image(70,70) %></td>
+            <td><%= follower.name %></td>
+            <td>フォロー数：<%= follower.following.count %></td>
+            <td>フォロワー数：<%= follower.followers.count %></td>
+            <td><%= link_to "Show", user_path(follower) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+</div>
