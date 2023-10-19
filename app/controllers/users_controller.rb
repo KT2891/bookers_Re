@@ -33,17 +33,17 @@ class UsersController < ApplicationController
     yesterday = Time.current.yesterday
     toweek = @today - 6.day
     lastweek = toweek - 8.day
-    @today_books = @user.books.where( created_at: @today.beginning_of_day..@today.end_of_day )
-    @yesterday_books = @user.books.where( created_at: yesterday.beginning_of_day..yesterday.end_of_day )
+    @today_books = @user.books.where( created_at: @today.all_day )
+    @yesterday_books = @user.books.where( created_at: yesterday.all_day )
     @toweek_books = @user.books.where( created_at: toweek.beginning_of_day..@today.end_of_day)
     @lastweek_books = @user.books.where( created_at: lastweek.beginning_of_day..(toweek - 1.day).end_of_day)
 
-    # グラフ表示用
-    @chartlabels = ["6日前","5日前","4日前","3日前","2日前","1日前","今日"].to_json.html_safe
-    @chartdatas = []
-     7.times do |num|
-       @chartdatas.push(@toweek_books.where(created_at: (6 - num).days.ago.beginning_of_day..(6 - num).days.ago.end_of_day).count)
-     end
+    @label = ["6日前","5日前","4日前","3日前","2日前","1日前","0日前"].to_json.html_safe
+    @books = @user.books
+    @data = []
+    7.times do |num|
+      @data.push(@toweek_books.where(created_at: (6 - num).days.ago.beginning_of_day..(6 - num).days.ago.end_of_day).count)
+    end
   end
 
   def edit
