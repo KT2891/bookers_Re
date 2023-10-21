@@ -8,6 +8,20 @@
     <label for="book_body">Opinion</label>
     <%= f.text_area :body ,class: "book_body form-control" %>
   </div>
+  <div class="from-group my-2">
+    <div id="post_raty"></div>
+    <script>
+      // scriptファイルをどのidの部分に配置するかを指定
+      let elem = document.querySelector('#post_raty');
+      let opt = {
+        starOn: "<%= asset_path('star-on.png') %>",
+        starOff: "<%= asset_path('star-off.png') %>",
+        starHalf: false,
+        scoreName: 'book[star]',
+      };
+      raty(elem,opt);
+    </script>
+  </div>
   <div class="form-group">
     <%= f.submit "Create Book", class: "btn btn-success" %>
   </div>

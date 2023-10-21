@@ -12,10 +12,33 @@
 <td id="comment_count">
   コメント数：<%= book.book_comments.count %>
 </td>
-<td>閲覧数：<%= book.foot_stamps.count %></td>
+<td>
+  <div id="star_<%= book.id %>"></ediv>
+<script>
+$(document).on('turbolinks:load', function() {
+  let elem = document.querySelector('#star_<%= book.id %>');
+  if (elem == null) return;
+
+  elem.innerHTML = "";
+  let opt = {
+    starOn: "<%= asset_path('star-on.png') %>",
+    starOff: "<%= asset_path('star-off.png') %>",
+    starHalf: false,
+    score: "<%= book.star %>",
+    readOnly: true,
+  };
+  raty(elem, opt);
+});
+</script>
+</td>
+<% unless current_page?(book_path(book)) %>
+  <td>閲覧数：<%= book.foot_stamps.count %></td>
+<% end %>
 <% if book.user == current_user %>
-  <td><%= link_to "Edit", edit_book_path(book), class: "btn btn-success" %></td>
-  <td><%= link_to "Destroy", book_path(book), method: :delete, "data-confirm" => "本当に消しますか？", class: "btn btn-danger"%></td>
+  <% unless current_page?(books_path) %>
+    <td><%= link_to "Edit", edit_book_path(book), class: "btn btn-success" %> <br>
+    <%= link_to "Destroy", book_path(book), method: :delete, "data-confirm" => "本当に消しますか？", class: "btn btn-danger mt-2"%></td>
+  <% end %>
 <% else %>
   <td colspan=2></td>
 <% end %>
