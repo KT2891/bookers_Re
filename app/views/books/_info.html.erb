@@ -35,7 +35,7 @@ $(document).on('turbolinks:load', function() {
   <td>閲覧数：<%= book.foot_stamps.count %></td>
 <% end %>
 <% if book.user == current_user %>
-  <% unless current_page?(books_path) %>
+  <% if current_page?(book_path(book)) || current_page?(user_path(book.user)) %>
     <td><%= link_to "Edit", edit_book_path(book), class: "btn btn-success" %> <br>
     <%= link_to "Destroy", book_path(book), method: :delete, "data-confirm" => "本当に消しますか？", class: "btn btn-danger mt-2"%></td>
   <% end %>

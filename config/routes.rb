@@ -27,4 +27,9 @@ Rails.application.routes.draw do
     resources :event_notices, only: [:new, :create, :edit, :update, :destroy]
   end
 
+  get "book_sorts/goods" => "book_sorts#goods", as: :sort_goods
+  get "book_sorts/comments" => "book_sorts#comments", as: :sort_comments
+  get "book_sorts/visits" => "book_sorts#visits", as: :sort_visits
+  get "book_sorts/star" => "book_sorts#star", as: :sort_stars
+
 end

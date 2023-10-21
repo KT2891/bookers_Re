@@ -2,10 +2,11 @@ class BooksController < ApplicationController
 before_action :is_matching_login_book_user, only: [:edit, :update]
 
   def index
-    today = Time.current.at_end_of_day
-    weekend = (today - 6.day).at_end_of_day
-    @books = Book.includes(:favorited_users)
-             .sort_by { |book| -book.favorited_users.where(created_at: weekend...today).count }
+    # today = Time.current.at_end_of_day
+    # weekend = (today - 6.day).at_end_of_day
+    # @books = Book.includes(:favorited_users)
+    #         .sort_by { |book| -book.favorited_users.where(created_at: weekend...today).count }
+    @books = Book.all
     @book = Book.new
   end
 
