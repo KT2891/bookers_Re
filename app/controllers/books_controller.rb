@@ -25,6 +25,7 @@ before_action :is_matching_login_book_user, only: [:edit, :update]
     @book = Book.new(book_params)
     @book.user_id = current_user.id
     if @book.save
+      @book.book_tags.create(tag: params[:book_tag][:tag])
       flash[:notice] = "successfully"
       redirect_to book_path(@book)
     else

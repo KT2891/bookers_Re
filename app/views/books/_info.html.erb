@@ -6,6 +6,15 @@
 </td>
 <td><%= link_to book.title, book_path(book) %></td>
 <td><%= book.body %></td>
+<td>
+  <% if book.book_tags.first %>
+    <%= form_with url: search_path, method: :get do |f| %>
+      <%= f.hidden_field :range, value: "Tag" %>
+      <%= f.hidden_field :word, value: book.book_tags.first.tag %>
+      <%= f.submit book.book_tags.first.tag, class:"btn btn-link p-0"%>
+    <% end %>
+  <% end %>
+</td>
 <td id="favorite_<%= book.id %>">
   <%= render "favorites/favorite", book: book %>
 </td>

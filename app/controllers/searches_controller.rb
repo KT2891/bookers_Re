@@ -5,8 +5,10 @@ class SearchesController < ApplicationController
     @word = params[:word]
     if params[:range] == "User"
       @users = User.looks(params[:search], params[:word] )
-    else
+    elsif params[:range] == "Book"
       @books = Book.looks(params[:search], params[:word] )
+    else
+      @books = Book.includes(:book_tags).where(book_tags: {tag: params[:word]})
     end
   end
 
