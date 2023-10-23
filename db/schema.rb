@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_10_20_035052) do
+ActiveRecord::Schema.define(version: 2023_10_23_012616) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -48,6 +48,15 @@ ActiveRecord::Schema.define(version: 2023_10_20_035052) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["book_id"], name: "index_book_comments_on_book_id"
     t.index ["user_id"], name: "index_book_comments_on_user_id"
+  end
+
+  create_table "book_tags", force: :cascade do |t|
+    t.integer "book_id", null: false
+    t.string "tag"
+    t.string "string"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["book_id"], name: "index_book_tags_on_book_id"
   end
 
   create_table "books", force: :cascade do |t|
@@ -154,6 +163,7 @@ ActiveRecord::Schema.define(version: 2023_10_20_035052) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "book_comments", "books"
   add_foreign_key "book_comments", "users"
+  add_foreign_key "book_tags", "books"
   add_foreign_key "books", "users"
   add_foreign_key "entries", "rooms"
   add_foreign_key "entries", "users"

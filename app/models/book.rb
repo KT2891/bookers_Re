@@ -5,6 +5,7 @@ class Book < ApplicationRecord
   has_many :book_comments, dependent: :destroy
   has_many :foot_stamps, dependent: :destroy
   has_many :foot_stamps_users, through: :foot_stamps, source: :user
+  has_many :book_tags, dependent: :destroy
 
   validates :title, presence: true
   validates :body, presence: true, length: { maximum: 200}

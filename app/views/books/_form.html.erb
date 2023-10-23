@@ -8,6 +8,14 @@
     <label for="book_body">Opinion</label>
     <%= f.text_area :body ,class: "book_body form-control" %>
   </div>
+
+  <%= fields_for BookTag.new do |b| %>
+    <div class="form-group">
+        <label for="book_tag">Tag</label>
+        <%= b.text_field :tag, class: "book_tag form-control" %>
+    </div>
+  <% end %>
+
   <div class="from-group my-2">
     <div id="post_raty"></div>
     <script>
