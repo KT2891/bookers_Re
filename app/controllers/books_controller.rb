@@ -1,5 +1,5 @@
 class BooksController < ApplicationController
-before_action :is_matching_login_book_user, only: [:edit, :update]
+  before_action :is_matching_login_book_user, only: [:edit, :update]
 
   def index
     # today = Time.current.at_end_of_day
@@ -51,16 +51,14 @@ before_action :is_matching_login_book_user, only: [:edit, :update]
   end
 
   private
-
-  def book_params
-    params.require(:book).permit(:title, :body, :star)
-  end
-
-  def is_matching_login_book_user
-    book = Book.find(params[:id])
-    unless book.user == current_user
-      redirect_to books_path
+    def book_params
+      params.require(:book).permit(:title, :body, :star)
     end
-  end
 
+    def is_matching_login_book_user
+      book = Book.find(params[:id])
+      unless book.user == current_user
+        redirect_to books_path
+      end
+    end
 end

@@ -1,5 +1,4 @@
 class BookSortsController < ApplicationController
-
   def goods
     @books = Book.includes(:favorited_users)
              .sort_by { |book| -book.favorited_users.count }
@@ -16,5 +15,4 @@ class BookSortsController < ApplicationController
   def star
     @books = Book.all.sort_by { |book| -book.star.to_i }
   end
-
 end

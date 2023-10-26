@@ -1,11 +1,12 @@
 class UsersController < ApplicationController
   before_action :is_matching_login_user, only: [:edit, :update]
+  before_action :ensure_guest_user, only: [:edit]
 
   def index
     @books = Book.all
     @book = Book.new
     @users = User.all
-    @user= current_user
+    @user = current_user
   end
 
   def show
@@ -33,13 +34,13 @@ class UsersController < ApplicationController
     yesterday = Time.current.yesterday
     toweek = @today - 6.day
     lastweek = toweek - 8.day
-    @today_books = @user.books.where( created_at: @today.all_day )
-    @yesterday_books = @user.books.where( created_at: yesterday.all_day )
-    @toweek_books = @user.books.where( created_at: toweek.beginning_of_day..@today.end_of_day)
-    @lastweek_books = @user.books.where( created_at: lastweek.beginning_of_day..(toweek - 1.day).end_of_day)
+    @today_books = @user.books.where(created_at: @today.all_day)
+    @yesterday_books = @user.books.where(created_at: yesterday.all_day)
+    @toweek_books = @user.books.where(created_at: toweek.beginning_of_day..@today.end_of_day)
+    @lastweek_books = @user.books.where(created_at: lastweek.beginning_of_day..(toweek - 1.day).end_of_day)
 
     # グラフ表示用
-    @label = ["6日前","5日前","4日前","3日前","2日前","1日前","0日前"].to_json.html_safe
+    @label = ["6日前", "5日前", "4日前", "3日前", "2日前", "1日前", "0日前"].to_json.html_safe
     @books = @user.books
     @data = []
     7.times do |num|
@@ -47,7 +48,6 @@ class UsersController < ApplicationController
     end
 
     # 日付検索用
-
   end
 
   def edit
@@ -76,4 +76,10 @@ class UsersController < ApplicationController
       end
     end
 
+    def ensure_guest_user
+      @user = User.find(params[:id])
+      if @user.guest_user?
+        redirect_to user_path(current_user), notice: "ゲストユーザーはプロフィール画面へ遷移できません。"
+      end
+    end
 end

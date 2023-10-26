@@ -40,15 +40,14 @@ class EventNoticesController < ApplicationController
   end
 
   private
-  def event_notice_params
-    params.require(:event_notice).permit(:title, :body, :group_id)
-  end
-
-  def is_owner_matching
-    @group = Group.find(params[:group_id])
-    unless @group.owner == current_user
-      redirect_to group_path(@group)
+    def event_notice_params
+      params.require(:event_notice).permit(:title, :body, :group_id)
     end
-  end
 
+    def is_owner_matching
+      @group = Group.find(params[:group_id])
+      unless @group.owner == current_user
+        redirect_to group_path(@group)
+      end
+    end
 end

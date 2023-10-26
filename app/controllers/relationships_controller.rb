@@ -1,5 +1,4 @@
 class RelationshipsController < ApplicationController
-
   def create
     @user = User.find(params[:user_id])
     current_user.active_relationships.create(followed_id: @user.id)
@@ -33,5 +32,10 @@ class RelationshipsController < ApplicationController
   def followers
     @user = User.find(params[:user_id])
   end
-
 end
+
+
+
+params[:id]
+@comment = BookComment.find(params[:id])
+@book = book.comments

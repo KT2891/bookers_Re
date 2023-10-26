@@ -21,13 +21,13 @@ class User < ApplicationRecord
 
   has_many :group_users, dependent: :destroy
   has_many :groups, through: :group_users, source: :group
-  has_many :owned_groups, class_name: 'Group', foreign_key: 'owner_id'
+  has_many :owned_groups, class_name: "Group", foreign_key: "owner_id"
 
 
 
   validates :name, presence: true,
                    uniqueness: true,
-                   length: {minimum: 2, maximum: 20}
+                   length: { minimum: 2, maximum: 20 }
 
   validates :introduction, length: { maximum: 50 }
 
@@ -47,17 +47,29 @@ class User < ApplicationRecord
 
   def self.looks(search, word)
     case search
-      when "perfect_match" then
-        return User.where("name LIKE?","#{word}")
-      when "forward_match" then
-        return User.where("name LIKE?","#{word}%")
-      when "backward_match" then
-        return User.where("name LIKE?","%#{word}")
-      when "partial_match" then
-        return User.where("name LIKE?","%#{word}%")
-      else
-        return User.all
+    when "perfect_match" then
+      User.where("name LIKE?", "#{word}")
+    when "forward_match" then
+      User.where("name LIKE?", "#{word}%")
+    when "backward_match" then
+      User.where("name LIKE?", "%#{word}")
+    when "partial_match" then
+      User.where("name LIKE?", "%#{word}%")
+    else
+      User.all
     end
   end
 
+  GUEST_USER_EMAIL = "guest@example.com"
+
+  def self.guest
+    find_or_create_by!(email: GUEST_USER_EMAIL) do |user|
+      user.password = SecureRandom.urlsafe_base64
+      user.name = "guestuser"
+    end
+  end
+
+  def guest_user?
+    email == GUEST_USER_EMAIL
+  end
 end

@@ -1,8 +1,7 @@
 Rails.application.routes.draw do
-
   devise_for :users
-  root 'homes#top'
-  get 'home/about' => "homes#about", as: :about
+  root "homes#top"
+  get "home/about" => "homes#about", as: :about
 
   resources :books, except: [:new] do
     resource :favorites, only: [:create, :destroy]
@@ -19,8 +18,8 @@ Rails.application.routes.draw do
     resource :messages, only: [:create, :destroy]
   end
 
-  get 'search' => "searches#search", as: :search
-  post 'datesearch' => "searches#datesearch", as: :datesearch
+  get "search" => "searches#search", as: :search
+  post "datesearch" => "searches#datesearch", as: :datesearch
 
   resources :groups do
     resource :group_users, only: [:create, :destroy]
@@ -32,4 +31,7 @@ Rails.application.routes.draw do
   get "book_sorts/visits" => "book_sorts#visits", as: :sort_visits
   get "book_sorts/star" => "book_sorts#star", as: :sort_stars
 
+  devise_scope :user do
+    post "users/guest_sign_in", to: "users/sessions#guest_sign_in"
+  end
 end

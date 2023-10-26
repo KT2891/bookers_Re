@@ -1,5 +1,4 @@
 class RoomsController < ApplicationController
-
   def create
     @room = Room.create
     Entry.create(room_id: @room.id, user_id: current_user.id)
@@ -10,10 +9,10 @@ class RoomsController < ApplicationController
 
   def show
     @room = Room.find(params[:id])
-    if Entry.where(user_id: current_user.id,room_id: @room.id).present?
+    if Entry.where(user_id: current_user.id, room_id: @room.id).present?
       @room.entries.each do |entry|
         unless entry.user_id == current_user.id
-          @user= User.find(entry.user_id)
+          @user = User.find(entry.user_id)
         end
       end
       @message = Message.new
@@ -21,5 +20,4 @@ class RoomsController < ApplicationController
       redirect_back(fallback_location: user_path(current_user))
     end
   end
-
 end

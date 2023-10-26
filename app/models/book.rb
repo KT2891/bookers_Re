@@ -8,7 +8,7 @@ class Book < ApplicationRecord
   has_many :book_tags, dependent: :destroy
 
   validates :title, presence: true
-  validates :body, presence: true, length: { maximum: 200}
+  validates :body, presence: true, length: { maximum: 200 }
 
   def favorited_by?(user)
     favorites.exists?(user_id: user.id)
@@ -16,22 +16,22 @@ class Book < ApplicationRecord
 
   def self.looks(search, word)
     case search
-      when "perfect_match" then
-        return Book.where("title LIKE?","#{word}")
-      when "forward_match" then
-        return Book.where("title LIKE?","#{word}%")
-      when "backward_match" then
-        return Book.where("title LIKE?","%#{word}")
-      when "partial_match" then
-        return Book.where("title LIKE?","%#{word}%")
-      else
-        return Book.all
+    when "perfect_match" then
+      Book.where("title LIKE?", "#{word}")
+    when "forward_match" then
+      Book.where("title LIKE?", "#{word}%")
+    when "backward_match" then
+      Book.where("title LIKE?", "%#{word}")
+    when "partial_match" then
+      Book.where("title LIKE?", "%#{word}%")
+    else
+      Book.all
     end
   end
 
-    scope :created_on, ->(date) {
-    where(created_at: date.all_day)
-  }
+  scope :created_on, ->(date) {
+  where(created_at: date.all_day)
+}
 
   # has_one_attached :image
 
@@ -42,5 +42,4 @@ class Book < ApplicationRecord
   #   end
   #   image
   # end
-
 end

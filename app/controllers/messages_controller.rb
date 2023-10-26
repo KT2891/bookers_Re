@@ -1,5 +1,4 @@
 class MessagesController < ApplicationController
-
   def create
     @room = Room.find(params[:room_id])
     message = Message.create(params.require(:message).permit(:message, :user_id, :room_id).merge(room_id: @room.id))
@@ -9,5 +8,4 @@ class MessagesController < ApplicationController
     @room = Room.find(params[:room_id])
     @room.messages.destroy_all
   end
-
 end
